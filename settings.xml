@@ -1,223 +1,296 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+ | This is the configuration file for Maven. It can be specified at two levels:
+ |
+ |  1. User Level. This settings.xml file provides configuration for a single user,
+ |                 and is normally provided in ${user.home}/.m2/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the CLI option:
+ |
+ |                 -s /path/to/user/settings.xml
+ |
+ |  2. Global Level. This settings.xml file provides configuration for all Maven
+ |                 users on a machine (assuming they're all using the same Maven
+ |                 installation). It's normally provided in
+ |                 ${maven.conf}/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the CLI option:
+ |
+ |                 -gs /path/to/global/settings.xml
+ |
+ | The sections in this sample file are intended to give you a running start at
+ | getting the most out of your Maven installation. Where appropriate, the default
+ | values (values used when the setting is not specified) are provided.
+ |
+ |-->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <!--指定本地仓库存储路径。默认值为~/.m2/repository 即 ${user.home}/.m2/repository。 -->
-  <localRepository>d:/.m2/repository</localRepository>
+    <!-- localRepository
+     | The path to the local repository maven will use to store artifacts.
+     |
+     | Default: ${user.home}/.m2/repository
+    <localRepository>/path/to/local/repo</localRepository>
+    -->
 
-	<!--指定Maven是否需要和用户输入进行交互。true:需要与用户交互;false:使用一个合理的默认值。默认值为true。 -->
-  <interactiveMode>true</interactiveMode>
+    <!-- interactiveMode
+     | This will determine whether maven prompts you when it needs input. If set to false,
+     | maven will use a sensible default value, perhaps based on some other setting, for
+     | the parameter in question.
+     |
+     | Default: true
+    <interactiveMode>true</interactiveMode>
+    -->
 
-  <!--指定是否使用plugin-registry.xml文件来管理插件版本。设为true表示使用。默认值为false。-->
-  <usePluginRegistry>false</usePluginRegistry>
+    <!-- offline
+     | Determines whether maven should attempt to connect to the network when executing a build.
+     | This will have an effect on artifact downloads, artifact deployment, and others.
+     |
+     | Default: false
+    <offline>false</offline>
+    -->
 
-  <!--指定是否在离线模式下运行。设为true表示项目构建要在离线模式下运行，默认值为false。 -->
-  <offline>false</offline>
+    <!-- pluginGroups
+     | This is a list of additional group identifiers that will be searched when resolving plugins by their prefix, i.e.
+     | when invoking a command line like "mvn prefix:goal". Maven will automatically add the group identifiers
+     | "org.apache.maven.plugins" and "org.codehaus.mojo" if these are not already contained in the list.
+     |-->
+    <pluginGroups>
+        <!-- pluginGroup
+         | Specifies a further group identifier to use for plugin lookup.
+        <pluginGroup>com.your.plugins</pluginGroup>
+        -->
+    </pluginGroups>
 
-	<!-- 指定插件groupId列表，用于搜索时插件的groupId没有明确规定。 -->
-	<pluginGroups>
-	 	<!-- 指定使用插件查找进一步的组标识符 -->
-		<pluginGroup>com.micmiu.plugins</pluginGroup>
-	</pluginGroups>
+    <!-- proxies
+     | This is a list of proxies which can be used on this machine to connect to the network.
+     | Unless otherwise specified (by system property or command-line switch), the first proxy
+     | specification in this list marked as active will be used.
+     |-->
+    <proxies>
+        <!-- proxy
+         | Specification for one proxy, to be used in connecting to the network.
+         |
+        <proxy>
+          <id>optional</id>
+          <active>true</active>
+          <protocol>http</protocol>
+          <username>proxyuser</username>
+          <password>proxypass</password>
+          <host>proxy.host.net</host>
+          <port>80</port>
+          <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
+        </proxy>
+        -->
+    </proxies>
 
-  <!-- 指定这台机器连接到网络的代理服务器的列表。除非另有规定（系统属性或命令行开关），
-       列表中配置的第一代理将被激活使用。-->
-  <proxies>
-    <!-- 配置代理服务器的相关参数 -->
-    <proxy>
-    	<!-- 代理标识ID，默认值：default -->
-      <id>micmiuProxy</id>
-      <!-- 指定是否激活，默认值：true -->
-      <active>true</active>
-      <!-- 指定代理协议，默认值：http -->
-      <protocol>http</protocol>
-      <!-- 指定代理认证的用户名 -->
-      <username>micmiu</username>
-      <!-- 指定代理认证用户的密码 -->
-      <password>mypwd</password>
-      <!-- 指定代理服务器的主机名 -->
-      <host>micmiu.com</host>
-      <!-- 指定代理服务的端口 默认值：8080 -->
-      <port>80</port>
-      <!-- 指定不被代理的主机名列表。多个用|分隔。-->
-      <nonProxyHosts>ctosun.com|ctosun.micmiu.com</nonProxyHosts>
-    </proxy>
-  </proxies>
+    <!-- servers
+     | This is a list of authentication profiles, keyed by the server-id used within the system.
+     | Authentication profiles can be used whenever maven must make a connection to a remote server.
+     |-->
+    <servers>
+        <!-- server
+         | Specifies the authentication information to use when connecting to a particular server, identified by
+         | a unique name within the system (referred to by the 'id' attribute below).
+         |
+         | NOTE: You should either specify username/password OR privateKey/passphrase, since these pairings are
+         |       used together.
+         |
+        <server>
+          <id>deploymentRepo</id>
+          <username>repouser</username>
+          <password>repopwd</password>
+        </server>
+        -->
 
-  <!-- 这是一个认证配置的列表,系统内部根据配置的serverID使用。认证配置用于maven链接到远程服务-->
-  <servers>
-    <!-- 指定的身份认证信息用于连接到一个特定的服务器时，确定系统内的唯一的名称（简称下面的'id'属性）。-->
-    <server>
-    	<!-- 这是server的id（注意不是用户登陆的id）。该id与distributionManagement中repository元素的id必须要匹配。-->
-      <id>micmiu-releases</id>
-      <!-- 服务器认证的用户名 -->
-      <username>michael</username>
-      <!-- 服务器认证的用户对应的密码 -->
-      <password>mypwd</password>
-    </server>
+        <!-- Another sample, using keys to authenticate.
+        <server>
+          <id>siteServer</id>
+          <privateKey>/path/to/private/key</privateKey>
+          <passphrase>optional; leave empty if not used.</passphrase>
+        </server>
+        -->
+    </servers>
 
-    <!-- 另一个示例 私钥/密码 -->
-    <server>
-      <id>micmiu-snapshots</id>
-      <!-- 认证时使用的私钥文件。 -->
-      <privateKey>/home/micmiu/.ssh/id_dsa</privateKey>
-      <!-- 认证时使用的私钥密码，没有密码就设为空 -->
-      <passphrase>mypwd</passphrase>
-      <!-- 目录被创建时的权限设置。其值对应了unix文件系统的权限，如664，或者775 -->
-      <directoryPermissions>775</directoryPermissions>
-      <!-- 仓库文件创建时的权限设置。其值对应了unix文件系统的权限，如664，或者775。 -->
-      <filePermissions>664</filePermissions>
-    </server>
-  </servers>
+    <!-- mirrors
+     | This is a list of mirrors to be used in downloading artifacts from remote repositories.
+     |
+     | It works like this: a POM may declare a repository to use in resolving certain artifacts.
+     | However, this repository may have problems with heavy traffic at times, so people have mirrored
+     | it to several places.
+     |
+     | That repository definition will have a unique id, so we can create a mirror reference for that
+     | repository, to be used as an alternate download site. The mirror site will be the preferred
+     | server for that repository.
+     |-->
+    <mirrors>
+        <!-- mirror
+         | Specifies a repository mirror site to use instead of a given repository. The repository that
+         | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used
+         | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.
+         |
+        <mirror>
+          <id>mirrorId</id>
+          <mirrorOf>repositoryId</mirrorOf>
+          <name>Human Readable Name for this Mirror.</name>
+          <url>http://my.repository.com/repo/path</url>
+        </mirror>
+         -->
 
-  <!-- 指定镜像列表，用于从远程仓库下载资源 -->
-  <mirrors>
-    <!-- 指定仓库的镜像站点，代替一个给定的库。该镜像藏库有一个ID相匹配的mirrorOf元素。
-         ID是用于继承和直接查找目的，必须是唯一的。-->
-    <mirror>
-    	<!--该镜像的唯一标识符。id用来区分不同的mirror元素。 -->
-      <id>mirrorId</id>
-      <!--被镜像的服务器的id，比如：central，不能和id匹配。-->
-   		<mirrorOf>central</mirrorOf>
-      <name>micmiu for dev.</name>
-      <url>http://dev.micmiu.com/repo/maven2</url>
-    </mirror>
+        <mirror>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+        <mirror>
+            <id>alimaven</id>
+            <mirrorOf>central</mirrorOf>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+        </mirror>
 
-  </mirrors>
+        <mirror>
+            <id>ibiblio</id>
+            <mirrorOf>central</mirrorOf>
+            <name>Human Readable Name for this Mirror.</name>
+            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
+        </mirror>
+        <mirror>
+            <id>jboss-public-repository-group</id>
+            <mirrorOf>central</mirrorOf>
+            <name>JBoss Public Repository Group</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+        </mirror>
 
-  <!-- 这是一个可以在各种不同的方式激活的配置文件列表，并可以修改构建过程。在settings.xml中提供的信息，
-       旨在提供本地机器允许建立在本地环境中工作的具体路径和库位置。有多种方式可以激活配置属性：一种在settings.xml中<activeProfiles>指定；
-       另一种实质上依赖于系统属性，无论是匹配特定的属性值或只是测试到它的存在.配置文件也可以根据JDK版本的前缀进行激活，1.4 可以激活1.4.2_07
-    注：对于在settings.xml中定义的配置，你仅限于指定资源仓库、插件仓库和用于插件在POM中变量的自由形式属性的定义 -->
-  <profiles>
-    <!-- 指定生成过程的介绍，使用一个或多个上述机制被激活。对于继承而言，激活通过<activatedProfiles/>或命令行配置文件，
-         配置文件必须有一个唯一的ID。此配置文件的例子使用的JDK版本触发激活。-->
-    <profile>
-    	<!--该配置的唯一标识符。 -->
-      <id>jdk-1.4</id>
+        <mirror>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <url>http://repo1.maven.org/maven2/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+        <mirror>
+            <id>repo2</id>
+            <mirrorOf>central</mirrorOf>
+            <name>Human Readable Name for this Mirror.</name>
+            <url>http://repo2.maven.org/maven2/</url>
+        </mirror>
+    </mirrors>
 
-			<!--自动触发配置文件的逻辑定义。Activation的逻辑配置决定了是否开启该profile。activation元素并不是激活profile的唯一方式。
-			    settings.xml文件中的activeProfile元素可指定需要激活的profile的id。
-			    profile也可以通过在命令行，使用-P标记和逗号分隔的列表来显式的激活 -->
-      <activation>
-      	<!--指定是否激活的标识 默认值为false-->
-    		<activeByDefault>false</activeByDefault>
+    <!-- profiles
+     | This is a list of profiles which can be activated in a variety of ways, and which can modify
+     | the build process. Profiles provided in the settings.xml are intended to provide local machine-
+     | specific paths and repository locations which allow the build to work in the local environment.
+     |
+     | For example, if you have an integration testing plugin - like cactus - that needs to know where
+     | your Tomcat instance is installed, you can provide a variable here such that the variable is
+     | dereferenced during the build process to configure the cactus plugin.
+     |
+     | As noted above, profiles can be activated in a variety of ways. One way - the activeProfiles
+     | section of this document (settings.xml) - will be discussed later. Another way essentially
+     | relies on the detection of a system property, either matching a particular value for the property,
+     | or merely testing its existence. Profiles can also be activated by JDK version prefix, where a
+     | value of '1.4' might activate a profile when the build is executed on a JDK version of '1.4.2_07'.
+     | Finally, the list of active profiles can be specified directly from the command line.
+     |
+     | NOTE: For profiles defined in the settings.xml, you are restricted to specifying only artifact
+     |       repositories, plugin repositories, and free-form properties to be used as configuration
+     |       variables for plugins in the POM.
+     |
+     |-->
+    <profiles>
+        <!-- profile
+         | Specifies a set of introductions to the build process, to be activated using one or more of the
+         | mechanisms described above. For inheritance purposes, and to activate profiles via <activatedProfiles/>
+         | or the command line, profiles have to have an ID that is unique.
+         |
+         | An encouraged best practice for profile identification is to use a consistent naming convention
+         | for profiles, such as 'env-dev', 'env-test', 'env-production', 'user-jdcasey', 'user-brett', etc.
+         | This will make it more intuitive to understand what the set of introduced profiles is attempting
+         | to accomplish, particularly when you only have a list of profile id's for debug.
+         |
+         | This profile example uses the JDK version to trigger activation, and provides a JDK-specific repo.
+        <profile>
+          <id>jdk-1.4</id>
 
-      	<!--当匹配的jdk被检测到，profile被激活。例如，1.4激活JDK1.4，1.4.0_2，而!1.4激活所有不是以1.4开头的JDK版本。-->
-        <jdk>1.4</jdk>
+          <activation>
+            <jdk>1.4</jdk>
+          </activation>
 
-        <!-- 当检测到匹配的操作系统属性时，指定该配置文件将被激活， -->
-       	<os>
-		     	<!--激活profile的操作系统的名字 -->
-		     	<name>windows 7</name>
-		     	<!--激活profile的操作系统所属家族(如 'windows')  -->
-		     	<family>windows</family>
-		    	<!--激活profile的操作系统体系结构  -->
-		     	<arch>x86</arch>
-		     	<!--激活profile的操作系统版本-->
-		     	<version>6.1</version>
-	    	</os>
+          <repositories>
+            <repository>
+              <id>jdk14</id>
+              <name>Repository for JDK 1.4 builds</name>
+              <url>http://www.myhost.com/maven/jdk14</url>
+              <layout>default</layout>
+              <snapshotPolicy>always</snapshotPolicy>
+            </repository>
+          </repositories>
+        </profile>
+        -->
 
-	    	<!-- 检测系统对应的属性和值(该值可在POM中通过${属性名称}引用)，配置就会被激活。
-	    	    如果值字段是空的，那么存在属性名称字段就会激活 -->
-		    <property>
-		     	<!-- 属性的名称 -->
-		     	<name>mavenVersion</name>
-		     	<!-- 属性的值 -->
-		    	<value>3.0.4</value>
-		    </property>
-		    <!-- 通过检测该文件的是否存在来激活配置。missing检查文件是否存在，如果不存在则激活profile；exists则会检查文件是否存在，如果存在则激活。-->
-		    <file>
-		    	<!--如果指定的文件存在，则激活profile。 -->
-		    	<exists>/usr/local/micmiu/workspace/myfile</exists>
-		    	<!--如果指定的文件不存在，则激活profile。-->
-		    	<missing>/usr/local/micmiu/workspace/myfile</missing>
-		    </file>
-      </activation>
+        <!--
+         | Here is another profile, activated by the system property 'target-env' with a value of 'dev',
+         | which provides a specific path to the Tomcat instance. To use this, your plugin configuration
+         | might hypothetically look like:
+         |
+         | ...
+         | <plugin>
+         |   <groupId>org.myco.myplugins</groupId>
+         |   <artifactId>myplugin</artifactId>
+         |
+         |   <configuration>
+         |     <tomcatLocation>${tomcatPath}</tomcatLocation>
+         |   </configuration>
+         | </plugin>
+         | ...
+         |
+         | NOTE: If you just wanted to inject this configuration whenever someone set 'target-env' to
+         |       anything, you could just leave off the <value/> inside the activation-property.
+         |
+        <profile>
+          <id>env-dev</id>
 
-			<!-- 对应profile的扩展属性列表。Maven属性和Ant中的属性一样，可以用来存放一些值。这些值可以在POM中的任何地方使用标记${X}来使用，
-			     这里X是指属性的名称。属性有五种不同的形式，并且都能在settings.xml文件中访问。
-   					1. env.X: 表示系统环境变量。例如,"env.PATH" 等同于 $path环境变量（在Windows上是%PATH%）。
-					  2. project.x：表示 POM中对应的属性值。
-					  3. settings.x: 表示 settings.xml中对应属性值。
-					  4. Java系统属性: 所有可通过java.lang.System.getProperties()访问的属性都能在POM中使用该形式访问。
-					  5. x: 在<properties/>元素中，或者外部文件中设置，以${someVar}的形式使用。 -->
-		 	<properties>
-		  	<user.blog>www.micmiu.com</user.blog>
-		  </properties>
+          <activation>
+            <property>
+              <name>target-env</name>
+              <value>dev</value>
+            </property>
+          </activation>
 
-    </profile>
+          <properties>
+            <tomcatPath>/path/to/tomcat/instance</tomcatPath>
+          </properties>
+        </profile>
+        -->
+    </profiles>
 
-    <!-- 这是另一个配置文件，根据系统属性来激活 -->
-    <profile>
-    	<!--该配置的唯一标识符。 -->
-      <id>env-dev</id>
-      <activation>
-        <property>
-        	<!-- 被用来激活配置文件的属性的名称 -->
-          <name>target-env</name>
-          <!-- 被用来激活配置文件的属性的值 -->
-          <value>dev</value>
-        </property>
-      </activation>
-      <!-- 指定配置文件的扩展配置 内容采取property.value的形式 -->
-      <properties>
-        <tomcatPath>/path/to/tomcat/instance</tomcatPath>
-      </properties>
-    </profile>
-
-    <profile>
-			<id>repo-dev</id>
-			<!-- 配置远程仓库列表 -->
-			<repositories>
-				<!-- 远程仓库的配置信息 -->
-				<repository>
-					<!-- 远程仓库唯一标识-->
-					<id>nexus</id>
-					<!-- 远程仓库名称 -->
-					<name>nexus for develop</name>
-					<!-- 远程仓库URL -->
-					<url>http://192.168.1.8:8080/nexus/content/groups/public/</url>
-					<layout>default</layout>
-					<releases>
-						<!--是否使用这个资源库下载这种类型的构件 默认值：true-->
-						<enabled>true</enabled>
-						<!--指定下载更新的频率。这里的选项是：always（一直），daily（每日，默认值），interval：X（这里X是指分钟），或者never（从不）。 -->
-			      <updatePolicy>daily</updatePolicy>
-			      <!--当Maven验证构件校验文件失败时该怎么做fail（失败）或者warn（告警）。-->
-			      <checksumPolicy>warn</checksumPolicy>
-					</releases>
-					<snapshots>
-						<!--是否使用这个资源库下载这种类型的构件 默认值：true-->
-						<enabled>true</enabled>
-						<!--指定下载更新的频率。这里的选项是：always（一直），daily（每日，默认值），interval：X（这里X是指分钟），或者never（从不）。 -->
-			      <updatePolicy>daily</updatePolicy>
-			      <!--当Maven验证构件校验文件失败时该怎么做fail（失败）或者warn（告警）。-->
-			      <checksumPolicy>warn</checksumPolicy>
-					</snapshots>
-				</repository>
-			</repositories>
-			<pluginRepositories>
-				<pluginRepository>
-					<id>nexus</id>
-					<name>local nexus</name>
-					<url>http://192.168.1.8:8080/nexus/content/groups/public</url>
-					<layout>default</layout>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</pluginRepository>
-			</pluginRepositories>
-		</profile>
-
-  </profiles>
-
-  <!-- 指定被激活的配置文件-->
-  <activeProfiles>
-    <activeProfile>repo-dev</activeProfile>
-  </activeProfiles>
+    <!-- activeProfiles
+     | List of profiles that are active for all builds.
+     |
+    <activeProfiles>
+      <activeProfile>alwaysActiveProfile</activeProfile>
+      <activeProfile>anotherAlwaysActiveProfile</activeProfile>
+    </activeProfiles>
+    -->
 </settings>
