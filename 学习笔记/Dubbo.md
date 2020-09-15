@@ -11,7 +11,7 @@
 
 ## Dubbo框架设计结构
 
-![](https://tva1.sinaimg.cn/large/007S8ZIlly1girhn1omuzj30y10u0q6w.jpg)
+![123](https://tva1.sinaimg.cn/large/007S8ZIlly1girhn1omuzj30y10u0q6w.jpg)
 
 1. `service` 服务接口层：该层是与实际业务逻辑相关的，根据服务提供方和服务消费方的业务设计对应的接口和实现。
 2. `config` 配置层：对外配置接口，以`ServiceConfig`和`ReferenceConfig`为中心，可以直接new配置类，也可以通过spring解析配置生成配置类。
@@ -43,7 +43,7 @@
 
 　　而且因为走的是单一长连接，所以传输数据量太大的话，会导致并发能力降低。所以一般建议是传输数据量很小，支撑高并发访问。
 
-![img](../md-pic/720994-20181206103323155-25824600.png)
+![img](https://tva1.sinaimg.cn/large/007S8ZIlly1girhsowmomj30mc0ift9a.jpg)
 
 **rmi协议**
 
