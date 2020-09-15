@@ -11,7 +11,7 @@
 
 ## Dubbo框架设计结构
 
-![123](https://tva1.sinaimg.cn/large/007S8ZIlly1girhn1omuzj30y10u0q6w.jpg)
+![123](../typ-pic/007S8ZIlly1girhn1omuzj30y10u0q6w.jpg)
 
 1. `service` 服务接口层：该层是与实际业务逻辑相关的，根据服务提供方和服务消费方的业务设计对应的接口和实现。
 2. `config` 配置层：对外配置接口，以`ServiceConfig`和`ReferenceConfig`为中心，可以直接new配置类，也可以通过spring解析配置生成配置类。
@@ -43,7 +43,7 @@
 
 　　而且因为走的是单一长连接，所以传输数据量太大的话，会导致并发能力降低。所以一般建议是传输数据量很小，支撑高并发访问。
 
-![img](https://tva1.sinaimg.cn/large/007S8ZIlly1girhsowmomj30mc0ift9a.jpg)
+![img](../typ-pic/007S8ZIlly1girhsowmomj30mc0ift9a.jpg)
 
 **rmi协议**
 
@@ -154,7 +154,7 @@ Protocol Buffer 其实是 Google 出品的一种轻量并且高效的结构化�
 
 ## Dubbo 中 SPI 机制
 
-![image-20200908170144961](../md-pic/image-20200908170144961.png)
+![image-20200908170144961](../typ-pic/image-20200908170144961.png)
 
 
 
@@ -185,25 +185,20 @@ Protocol Buffer 其实是 Google 出品的一种轻量并且高效的结构化�
 - 什么是本地暴露和远程暴露，他们的区别?
 
   1. 本地暴露是`暴露在JVM中`，不需要网络通信。URL以`injvm`开头，比如`injvm.//127.0.0.1/com.alibaba`
-2. 远程暴露是将ip和端口等信息暴露给远程客户端，调用时需要网络通信。URL以`registry`开头，比如`registry://192.168.0.11:2181`
-
+  2. 远程暴露是将ip和端口等信息暴露给远程客户端，调用时需要网络通信。URL以`registry`开头，比如`registry://192.168.0.11:2181`
 ## 服务暴露的过程
-
-### 总过程
-
-![](https://tva1.sinaimg.cn/large/007S8ZIlly1girhi0j6r5j30u01d70xo.jpg)
 
 ### 本地暴露
 
-![](https://tva1.sinaimg.cn/large/007S8ZIlly1girhifvapvj30sa10ydhn.jpg)
+![007S8ZIlly1girhifvapvj30sa10ydhn](../typ-pic/007S8ZIlly1girhifvapvj30sa10ydhn.jpg)
 
 ### 远程暴露
 
-![](https://tva1.sinaimg.cn/large/007S8ZIlly1girhiq6yfdj30y70u0tag.jpg)
+![007S8ZIlly1girhiq6yfdj30y70u0tag](../typ-pic/007S8ZIlly1girhiq6yfdj30y70u0tag.jpg)
 
 ## 整体总结
 
-![2019071210011_4](/Users/wenzhong/typora-pic/2019071210011_4.png)
+![2019071210011_4](../typ-pic/2019071210011_4.png)
 
 ## 服务注册
 
@@ -214,11 +209,9 @@ Protocol Buffer 其实是 Google 出品的一种轻量并且高效的结构化�
 
 ## 服务引用流程
 
-![1041678-5c94322b3aa14d9a](/Users/wenzhong/typora-pic/1041678-5c94322b3aa14d9a.png)
+![1041678-5c94322b3aa14d9a](../typ-pic/1041678-5c94322b3aa14d9a.png)
 
-
-
-![image-20200908203250237](/Users/wenzhong/typora-pic/image-20200908203250237.png)
+![image-20200908203250237](../typ-pic/image-20200908203250237.png)
 
 ## Zookeeper创建节点
 
@@ -244,7 +237,7 @@ Protocol Buffer 其实是 Google 出品的一种轻量并且高效的结构化�
 
 - 在dubbo中，什么时候更新本地的zookeeper信息缓存文件？订阅zookeeper信息的整体过程是怎么样的?
 
-  ![2019071210012_3](/Users/wenzhong/typora-pic/2019071210012_3.png)
+  ![image-20200915181226607](../typ-pic/007S8ZIlly1giri0u6y5cj31cm0u0dmr.png)
 
 ## Dubbo服务降级
 
@@ -259,10 +252,4 @@ Protocol Buffer 其实是 Google 出品的一种轻量并且高效的结构化�
 ## 为什么这个监控平台这么神奇，能动态改变接口的一些默认设置?
 
 原理就是改变注册在zookeeper上的节点信息，从而zookeeper通知重新生成invoker。
-
-![](https://tva1.sinaimg.cn/large/007S8ZIlly1girgo0mrwaj30u00yy1fc.jpg)
-
-
-
-![](https://tva1.sinaimg.cn/large/007S8ZIlly1girgzpdfenj30u00z5b2a.jpg)
 
